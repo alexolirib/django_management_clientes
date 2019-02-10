@@ -55,7 +55,10 @@ ROOT_URLCONF = 'django_management_clientes.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            #avisar onde a gente irá guardar os templates
+            'templates'
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +122,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#arquivos estaticos
+MEDIA_URL = '/media/'
+
+#pasta
+MEDIA_ROOT = 'media'
+
+#para ser feito o login
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = 'person_list'
