@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'bootstrapform',
     'home',
     'client',
     'django.contrib.admin',
@@ -80,6 +81,14 @@ WSGI_APPLICATION = 'django_management_clientes.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'gestao_clientes',
+        'USER': 'postgres',
+        'PASSWORD': '123456',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    },
+    'sql3': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
@@ -134,3 +143,7 @@ MEDIA_ROOT = 'media'
 LOGIN_URL = '/login/'
 
 LOGIN_REDIRECT_URL = 'person_list'
+
+STATICFILES_DIRS = [
+    'statics',
+]

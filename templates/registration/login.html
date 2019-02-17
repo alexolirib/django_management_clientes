@@ -1,7 +1,15 @@
-<h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    <!--as_p para ser renderizado como paragrafo-->
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
+{% extends 'base.html'  %}
+
+{% block title %}Faça o login{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2>Login</h2>
+    <form method="post">
+        {% csrf_token %}
+        <!--as_p para ser renderizado como paragrafo-->
+        {{ form.as_p }}
+        <button class="btn btn-primary" type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}
