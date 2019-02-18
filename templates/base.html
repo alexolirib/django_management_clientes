@@ -3,13 +3,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock%}</title>
-    <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet"  href="{% static 'style.css' %}">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'stick-footer.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 
 </head>
 <body>
-    {% block body %}
-    {% endblock %}
+<div class="container">
+    <div class="jumbotron">
+        {% block body %}
+        {% endblock %}
+    </div>
+</div>
+
+{% block footer %}
+{% endblock %}
 </body>
 </html>

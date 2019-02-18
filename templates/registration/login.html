@@ -1,5 +1,5 @@
 {% extends 'base.html'  %}
-
+{% load bootstrap %}
 {% block title %}Faça o login{% endblock %}
 
 {% block body %}
@@ -12,4 +12,11 @@
         <button class="btn btn-primary" type="submit">Login</button>
     </form>
 </div>
+{% endblock %}
+{% block footer %}
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">Desenvolvimento web com Django 2.x</span>
+      </div>
+    </footer>
 {% endblock %}
