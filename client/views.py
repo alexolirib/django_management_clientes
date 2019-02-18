@@ -1,7 +1,11 @@
+from django.utils import timezone
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from client.forms import PersonForm
 from client.models import Person
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 #@login_required - para poder ter acesso a essa minha view somente cquem está
 #autenticado na aplicação
@@ -41,3 +45,17 @@ def persons_delete(request, id):
         person.delete()
         return redirect(persons_list)
     return render(request, 'person_delete_confirm.html', {'person': person, 'form':form})
+
+#se não informar o template_name ele pega o padrão (está em pasta de client)
+class PersonList(ListView):
+    model = Person
+    #definir um template para exibir
+    #template_name = 'home3.html'
+
+class PersonDetail(DetailView):
+    model = Person
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now'] = timezone.now()
+        return context
