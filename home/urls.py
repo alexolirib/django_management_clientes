@@ -1,5 +1,5 @@
 from django.urls import path
-from home.views import home, my_logout, HomePageView, MyView
+from home.views import home, my_logout, HomePageView, MyView, MyView2
 #templates views
 from django.views.generic.base import TemplateView
 
@@ -12,6 +12,7 @@ urlpatterns = [
     #para conseguir mandar parâmetros
     path('home3/', HomePageView.as_view(template_name='home3.html'), name='home3'),
     #utilizar para views bem básicas
-    path('view/', MyView.as_view())
+    path('view/', MyView.as_view()),
+    path('view2/<str:nome>/<int:id>', MyView2.as_view())
 
 ]

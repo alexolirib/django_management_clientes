@@ -25,6 +25,8 @@
         {% csrf_token %}
         <button type="submit">Enviar</button>
     </form>
+    <h2>{{var.first_name}}</h2>
+    <h3>{{var.last_name}}</h3>
     {% endblock %}
 
     {% block footer %}
@@ -33,4 +35,5 @@
             <span class="text-muted">Desenvolvimento web com Django 2.x</span>
         </div>
     </footer>
+
     {% endblock %}

@@ -4,6 +4,8 @@ from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 from django.views import View
 
+from client.models import Person
+
 
 def home(request):
     return render(request, 'home.html')
@@ -29,7 +31,22 @@ class HomePageView(TemplateView):
 class MyView(View):
     def get(self, request, *args, **kwargs):
         #return HttpResponse('hello, world!')
-        return render(request, 'home2.html')
+        var = Person(first_name='Alxandre', last_name='Ribeiro')
+        return render(request, 'home2.html',{'var': var})
+
+    def post(self, request, *args, **kwargs ):
+        return HttpResponse('Post')
+
+class MyView2(View):
+    def get(self, request, *args, **kwargs):
+        #return HttpResponse('hello, world!')
+        #breakpoint()
+        # view2/<str:nome>/<int:id>
+       # http: // localhost: 8000 / view2 / alex / 1
+        # kwargs['id'] = 1
+        # kwargs['nome'] = 1
+        var = Person(first_name='Alxandre', last_name='Ribeiro')
+        return render(request, 'home2.html',{'var': var})
 
     def post(self, request, *args, **kwargs ):
         return HttpResponse('Post')

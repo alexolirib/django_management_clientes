@@ -1,3 +1,9 @@
+
+<!--para pegar o objeto details se utiliza object-->
 {{object}}
 
 <p>data atual: {{now}}</p>
+
+<a href="{% url 'person_update_cbv' object.id  %}">update</a>
+&nbsp;
+<a href="{% url 'person_delete_cbv' object.id  %}">delete</a>

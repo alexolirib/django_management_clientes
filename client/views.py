@@ -2,10 +2,15 @@ from django.utils import timezone
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.views.generic.base import View
+
 from client.forms import PersonForm
 from client.models import Person
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+#ele descubra a url de acordo com o nome
+from django.urls import reverse_lazy
 
 #@login_required - para poder ter acesso a essa minha view somente cquem está
 #autenticado na aplicação
@@ -21,6 +26,8 @@ def persons_new(request):
     #verifica se já tem algo, se não envia vazio
     #request.FILES - arquivos de midias que estão sendo enviados
     form = PersonForm(request.POST or None,request.FILES or None)
+    breakpoint()
+
     if form.is_valid():
         form.save()
         return redirect(persons_list)
@@ -35,6 +42,8 @@ def persons_update(request, id):
         form.save()
         return redirect(persons_list)
     return render(request, 'person_form.html', {'form': form})
+
+
 
 @login_required
 def persons_delete(request, id):
@@ -59,3 +68,25 @@ class PersonDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context['now'] = timezone.now()
         return context
+
+class PersonCreate(CreateView):
+    model = Person
+    #personalizar os fields
+    fields = ['first_name', 'last_name', 'age', 'salary', 'bio', 'photo']
+
+    success_url = '/client/person_list'
+
+class PersonUpdate(UpdateView):
+    model = Person
+    #personalizar os fields
+    fields = ['first_name', 'last_name', 'age', 'salary', 'bio', 'photo']
+    success_url = reverse_lazy('person_list_cbv')
+
+class PersonDelete(DeleteView):
+    model = Person
+    #success_url = reverse_lazy('person_list_cbv')
+    #outra forma que ficar melhor para manipular
+    def get_success_url(self):
+        #consigo manipular melhor
+        return reverse_lazy('person_list_cbv')
+
