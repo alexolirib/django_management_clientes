@@ -1,0 +1,15 @@
+<form method="post">
+    <label>INSIRA DATAS </label>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">PESQUISAR</button>
+</form>
+
+Listagem de periodos
+<br>
+{% for periodo in periodos %}
+
+<a href="#">{{periodo}}</a>
+<br>
+
+{% endfor %}
