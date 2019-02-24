@@ -21,7 +21,7 @@ from django.db.models import Q
 def persons_list(request):
     #lista todos os clientes
     persons = Person.objects.all()
-    return render(request, 'person.html', {'v_persons': persons})
+    return render(request, 'person.html', {'v_persons': persons, 'footer_args': 'Tela list'})
 
 @login_required
 def persons_new(request):
@@ -115,22 +115,7 @@ class PeriodoListView(View):
             f_periodo = form.data.get('dt_fim')
             #query
 
-            #lte <= Menor que ou igual.
-            #gte >= Maior que ou igual.
-            #range = BETWEEN
-            periodos = Periodo.objects.filter(
-                (Q(p_inicio__gte=i_periodo) & Q(p_fim__lte =i_periodo))
-                |
-                (Q(p_inicio__lte=i_periodo) & Q(p_fim__gte=i_periodo))
-                |
-                (Q(p_inicio__gte=f_periodo) & Q(p_fim__lte=f_periodo))
-                |
-                (Q(p_inicio__lte=f_periodo) & Q(p_fim__gte=f_periodo))
-                |
-                (Q(p_inicio__range=(i_periodo, f_periodo)))
-                |
-                (Q(p_fim__range=(i_periodo, f_periodo)))
-            ).order_by('p_inicio')
+            periodos = Periodo.filtrar_periodo_data_inicio(i_periodo, f_periodo)
 
             context = {'periodos': periodos, 'form': form}
             return render(request, 'periodo/periodo_list.html', context)

@@ -1,47 +1,64 @@
 {% extends 'base.html'  %}
+<!--dentro de templatetags-->
+{% load filters %}
+{% load my_tags %}
 
 {% block title %}Olá {{user}} {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col">
+<div class="row">
+    <div class="col">
 
-        </div>
-        <div class="col-6">
-            <h3>Listagem de clientes</h3>
-            <ul class="list-group">
-                {% for person in v_persons %}
-                <li class="list-group-item">
-                    <a href="{% url 'person_update' person.id %}"> {{ person.first_name }} </a>
-                    &nbsp;
-                    <a href="{% url 'person_delete' person.id %}" class="trash-item">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
-                </li>
-                {%endfor%}
-            </ul>
-
-            <br>
-            <a href="{% url 'person_new'%}" class="btn btn-success">Novo Cliente</a>
-        </div>
-
-        <div class="col">
-            {% if user.is_authenticated %}
-            <p>Ola {{user }}
-                <a href="{%url 'logout'%}">
-                    <span class="badge badge-dark">Sair</span>
-                </a>
-            </p>
-
-            {% endif %}
-        </div>
     </div>
+    <div class="col-6">
+        <h3>Listagem de clientes</h3>
+        <ul class="list-group">
+            {% for person in v_persons %}
+            <li class="list-group-item">
+                <a href="{% url 'person_update' person.id %}"> {{ person.first_name }} </a>
+                &nbsp;
+                <a href="{% url 'person_delete' person.id %}" class="trash-item">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </li>
+            {% empty %}
+            <li>Desculpe, não existem clientes cadastrado</li>
+
+            {%endfor%}
+        </ul>
+
+        <br>
+        <a href="{% url 'person_new'%}" class="btn btn-success">Novo Cliente</a>
+    </div>
+
+    <div class="col">
+        {% if user.is_authenticated %}
+        <p>Ola {{user }}
+            <a href="{%url 'logout'%}">
+                <span class="badge badge-dark">Sair</span>
+            </a>
+        </p>
+
+        {% endif %}
+    </div>
+</div>
+<br>
+    {{footer_args|my_filter_person}}
+<br>
+    <!--template tag-->
+    {% current_time  "%Y-%m-%d" as the_time %}
+    {{the_time}}
+<br>
+
+{% filter force_escape|upper %}
+Testando filter de Upper case
+{% endfilter %}
+
 {% endblock %}
 
 {% block footer %}
-<footer class="footer">
-    <div class="container">
-        <span class="text-muted">Desenvolvimento web com Django 2.x</span>
-    </div>
-</footer>
+<!--primeira forma que é possível até levar parametro-->
+<!--{% include 'footer.html' %}-->
+<!--segunda forma se a primeira der erro de mandar parametro-->
+{% include 'footer.html' with footer_args='tela de lista params' %}
 {% endblock %}
