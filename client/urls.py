@@ -1,10 +1,10 @@
 
-from django.urls import path
+from django.urls import path, include
 
 from client.views import persons_list, persons_new, persons_update, persons_delete, PersonList, PersonDetail, \
-    PersonCreate, PersonUpdate, PersonDelete
+    PersonCreate, PersonUpdate, PersonDelete, PeriodoListView
 
-urlpatterns = [
+urlPerson=[
     path('list/', persons_list, name='person_list'),
     path('new/', persons_new, name='person_new'),
     path('update/<int:id>/', persons_update, name='person_update'),
@@ -15,4 +15,15 @@ urlpatterns = [
     path('person_create/', PersonCreate.as_view(), name='person_create_cbv'),
     path('person_delete/<int:pk>/', PersonDelete.as_view(), name='person_delete_cbv'),
     path('person_update/<int:pk>/', PersonUpdate.as_view(), name='person_update_cbv')
+]
+
+
+urlPeriodo=[
+    path('list/', PeriodoListView.as_view())
+]
+
+
+urlpatterns = [
+    path('person/', include(urlPerson)),
+    path('periodo/', include(urlPeriodo))
 ]

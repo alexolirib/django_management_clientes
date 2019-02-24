@@ -1,5 +1,6 @@
 from django.db import models
-#para criar - python manage.py startapp client
+
+
 class Document(models.Model):
     num_doc = models.CharField(max_length=50)
 
@@ -37,4 +38,12 @@ class Venda(models.Model):
 
     def __str__(self):
         return self.numero
+
+class Periodo(models.Model):
+    nome = models.CharField(max_length=60,null=True)
+    p_inicio = models.DateField()
+    p_fim = models.DateField()
+
+    def __str__(self):
+        return str(self.p_inicio) + " - " + str(self.p_fim)
 

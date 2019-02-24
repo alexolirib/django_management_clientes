@@ -1,16 +1,18 @@
 from django.utils import timezone
+from django.http import HttpResponse, HttpResponseBadRequest, Http404, HttpResponseNotFound
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.base import View
 
-from client.forms import PersonForm
-from client.models import Person
+from client.forms import PersonForm, SearchPeriodo
+from client.models import Person, Periodo
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 #ele descubra a url de acordo com o nome
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 #@login_required - para poder ter acesso a essa minha view somente cquem está
 #autenticado na aplicação
@@ -90,3 +92,50 @@ class PersonDelete(DeleteView):
         #consigo manipular melhor
         return reverse_lazy('person_list_cbv')
 
+class PeriodoDetailView(View):
+    def get(self, request, *args, **kwargs):
+        return HttpResponseBadRequest("Requisição triste")
+
+class PeriodoListView(View):
+    def get(self, request, *args, **kwargs):
+        periodos = Periodo.objects.all()
+        form = SearchPeriodo()
+        context = {'periodos': periodos, 'form': form}
+
+        pass
+        return render(request, 'periodo/periodo_list.html', context)
+
+    def post(self, request, *args, **kwargs):
+        #return HttpResponseBadRequest("Request triste")
+        form = SearchPeriodo(request.POST)
+
+        if form.is_valid():
+
+            i_periodo = form.data.get('dt_inicio')
+            f_periodo = form.data.get('dt_fim')
+            #query
+
+            #lte <= Menor que ou igual.
+            #gte >= Maior que ou igual.
+            #range = BETWEEN
+            periodos = Periodo.objects.filter(
+                (Q(p_inicio__gte=i_periodo) & Q(p_fim__lte =i_periodo))
+                |
+                (Q(p_inicio__lte=i_periodo) & Q(p_fim__gte=i_periodo))
+                |
+                (Q(p_inicio__gte=f_periodo) & Q(p_fim__lte=f_periodo))
+                |
+                (Q(p_inicio__lte=f_periodo) & Q(p_fim__gte=f_periodo))
+                |
+                (Q(p_inicio__range=(i_periodo, f_periodo)))
+                |
+                (Q(p_fim__range=(i_periodo, f_periodo)))
+            )
+
+            context = {'periodos': periodos, 'form': form}
+            return render(request, 'periodo/periodo_list.html', context)
+
+        periodos = Periodo.objects.all()
+
+        context = {'periodos': periodos, 'form': form}
+        return render(request, 'periodo/periodo_list.html', context)
