@@ -6,17 +6,25 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.base import View
 
 from client.forms import PersonForm, SearchPeriodo
-from client.models import Person, Periodo
+from client.models import Person, Periodo, Produto
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 #ele descubra a url de acordo com o nome
 from django.urls import reverse_lazy
-from django.db.models import Q
 
-#@login_required - para poder ter acesso a essa minha view somente cquem está
-#autenticado na aplicação
+#deixar perfomático
+#pegar algo específico -  prefetch_related('doc') (sem precisar fazer acesso ao banco
+#Person.objects.prefetch_related('doc').all()
+#Person.objects.all().values_list('id', 'first_name') = select id, first_name from client_person
 
+#Person.objects.all().order_by('-id') = vir ordem inversa
+#Person.objects.all().reverse()
+
+# query vir de forma de dicionario
+# from django.forms.models import model_to_dict
+# a = Person.objects.all()
+# model_to_dict(a)
 @login_required
 def persons_list(request):
     #lista todos os clientes
@@ -91,6 +99,16 @@ class PersonDelete(DeleteView):
     def get_success_url(self):
         #consigo manipular melhor
         return reverse_lazy('person_list_cbv')
+
+class ProdutoBulk(View):
+    def get(self, request):
+        produtos = ['Banana', 'apple', 'limon', 'orange', 'pineapple']
+        list_produtos = []
+        for prod in produtos:
+            list_produtos.append(Produto(descricao=prod , preco=10))
+
+        Produto.objects.bulk_create(list_produtos)
+        return HttpResponse("Salvo com sucesso")
 
 class PeriodoDetailView(View):
     def get(self, request, *args, **kwargs):
