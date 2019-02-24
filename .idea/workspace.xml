@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d6e079b5-fcd5-4618-be0b-83faffaf6263" name="Default Changelist" comment="...">
+    <list default="true" id="d6e079b5-fcd5-4618-be0b-83faffaf6263" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/templates/person.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/templates/person.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/templates/person_delete_confirm.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/templates/person_delete_confirm.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/templates/person_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/client/templates/person_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -69,7 +64,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/templates/person.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="184">
+            <state relative-caret-position="246">
               <caret line="62" column="53" lean-forward="true" selection-start-line="62" selection-start-column="53" selection-end-line="62" selection-end-column="53" />
             </state>
           </provider>
@@ -273,7 +268,7 @@
       <option name="presentableId" value="Default" />
       <updated>1550100286982</updated>
       <workItem from="1550948398423" duration="12001000" />
-      <workItem from="1551018223937" duration="7550000" />
+      <workItem from="1551018223937" duration="7870000" />
     </task>
     <task id="LOCAL-00001" summary="melhorando a interface">
       <created>1550454952688</created>
@@ -317,11 +312,18 @@
       <option name="project" value="LOCAL" />
       <updated>1550987474465</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="learning the Django template system">
+      <created>1551028676317</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1551028676317</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19551000" />
+    <option name="totallyTimeSpent" value="19871000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -334,7 +336,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20272315" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -345,10 +346,10 @@
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" />
       <window_info anchor="bottom" id="Run" order="5" weight="0.39291465" />
-      <window_info active="true" anchor="bottom" id="Debug" order="6" sideWeight="0.49924356" visible="true" weight="0.4347826" />
+      <window_info anchor="bottom" id="Debug" order="6" sideWeight="0.49924356" weight="0.4347826" />
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4977307" weight="0.33494365" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.4977307" visible="true" weight="0.33494365" />
       <window_info anchor="bottom" id="TODO" order="10" sideWeight="0.49924356" weight="0.32850242" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50226927" side_tool="true" weight="0.4041868" />
       <window_info anchor="bottom" id="Python Console" order="12" sideWeight="0.49848714" weight="0.23510467" />
@@ -370,7 +371,8 @@
     <MESSAGE value="create period app by and doing search by date" />
     <MESSAGE value="inserting order by in queries" />
     <MESSAGE value="..." />
-    <option name="LAST_COMMIT_MESSAGE" value="..." />
+    <MESSAGE value="learning the Django template system" />
+    <option name="LAST_COMMIT_MESSAGE" value="learning the Django template system" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -775,7 +777,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/templates/person.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
+        <state relative-caret-position="246">
           <caret line="62" column="53" lean-forward="true" selection-start-line="62" selection-start-column="53" selection-end-line="62" selection-end-column="53" />
         </state>
       </provider>

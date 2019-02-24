@@ -1,0 +1,16 @@
+{% load my_tags %}
+
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted">Desenvolvimento web com Django 2.x {{ footer_args }}
+            {% now 'd-m-Y' %}
+            <br>
+            {% now 'd F H:i' %}
+            &nbsp;
+            {% now 'jS F H:i' %}
+            <br>
+
+            {% simple_message_footer %}
+        </span>
+    </div>
+</footer>
