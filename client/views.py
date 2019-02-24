@@ -98,7 +98,7 @@ class PeriodoDetailView(View):
 
 class PeriodoListView(View):
     def get(self, request, *args, **kwargs):
-        periodos = Periodo.objects.all()
+        periodos = Periodo.objects.all().order_by('p_inicio')
         form = SearchPeriodo()
         context = {'periodos': periodos, 'form': form}
 
@@ -130,12 +130,12 @@ class PeriodoListView(View):
                 (Q(p_inicio__range=(i_periodo, f_periodo)))
                 |
                 (Q(p_fim__range=(i_periodo, f_periodo)))
-            )
+            ).order_by('p_inicio')
 
             context = {'periodos': periodos, 'form': form}
             return render(request, 'periodo/periodo_list.html', context)
 
-        periodos = Periodo.objects.all()
+        periodos = Periodo.objects.all().order_by('p_inicio')
 
         context = {'periodos': periodos, 'form': form}
         return render(request, 'periodo/periodo_list.html', context)
