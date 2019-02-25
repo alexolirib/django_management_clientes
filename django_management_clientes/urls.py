@@ -6,6 +6,7 @@ from django.contrib.auth import views as auth_views
 
 from client import urls as clients_urls
 from home import urls as home_urls
+from mail import urls as mail_urls
 
 urlpatterns = [
     path('client/', include(clients_urls)),
@@ -15,6 +16,7 @@ urlpatterns = [
     #para personalzar o logout vou fazer isso no app Home
     #path('logout/', auth_views.logout, name='logout'),
     path('admin/', admin.site.urls),
+    path('mail/', include(mail_urls)),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) = visualizar imagem

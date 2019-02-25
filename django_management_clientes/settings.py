@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'home',
     'client',
+    'mail',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -147,3 +148,19 @@ LOGIN_REDIRECT_URL = 'person_list'
 STATICFILES_DIRS = [
     'statics',
 ]
+
+#config de email -gmail
+# EMAIL_USE_TLS = True
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#  EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'alexolirib@gmail.com'
+# EMAIL_HOST_PASSWORD = '*******'
+# EMAIL_PORT = 587
+
+#outlook
+EMAIL_HOST = 'outlook.office365.com'
+EMAIL_HOST_USER = 'alexolirib@outlook.com'
+EMAIL_HOST_PASSWORD = '*******'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
