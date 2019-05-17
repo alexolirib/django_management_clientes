@@ -1,9 +1,31 @@
+{% extends 'base.html' %}
 
 <!--para pegar o objeto details se utiliza object-->
-{{object}}
+{% block body %}
+    {{object}}
 
-<p>data atual: {{now}}</p>
+    <p>data atual: {{now}}</p>
 
-<a href="{% url 'person_update_cbv' object.id  %}">update</a>
-&nbsp;
-<a href="{% url 'person_delete_cbv' object.id  %}">delete</a>
+    <b>Nome</b>: {{ object.first_name }} <br>
+    <b>sobrenome</b>: {{ object.last_name }} <br>
+    <b>Documentação</b>: {{ object.doc }}<br>
+    <b>Vendas</b>: {{ count_vendas }}<br>
+
+    <a href="{% url 'person_update_cbv' object.id  %}">update</a>
+    &nbsp;
+    <a href="{% url 'person_delete_cbv' object.id  %}">delete</a>
+{% include 'footer.html' with footer_args='tela de lista params' %}
+    <br>
+    <br>
+    {% for venda in vendas  %}
+        <h2>venda - {{ venda.id }}</h2>
+        <h3>------- Lista Produto --------</h3>
+        <ul>
+        {% for produto in venda.produtos.all %}
+
+            <li>{{ produto.id }} -- {{ produto.descricao }}</li>
+        {% endfor %}
+        </ul>
+        <p> -----------------Próxima venda----------------- </p>
+    {% endfor %}
+{% endblock %}

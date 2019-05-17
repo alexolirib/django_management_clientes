@@ -29,13 +29,37 @@ class Produto(models.Model):
     def __str__(self):
         return self.descricao
 
+from functools import reduce
 class Venda(models.Model):
     numero = models.CharField(max_length=7)
-    valor = models.DecimalField(max_digits=5, decimal_places=2)
     desconto = models.DecimalField(max_digits=5, decimal_places=2)
     imposto = models.DecimalField(max_digits=5, decimal_places=2)
     person = models.ForeignKey(Person, null=True, blank=True, on_delete=models.CASCADE)
     produtos = models.ManyToManyField(Produto, blank=True)
+
+    def get_total(self):
+        return (self.value_all_sale() - self.calculate_tax_discount())
+
+    def value_all_sale(self):
+        prices = [x.preco for x in self.produtos.all()]
+        sum_prices = reduce(lambda x, y: x+y, prices)
+        return float(sum_prices)
+
+    #sobrescrevendo método save
+    # def save(self, filename="Venda", *args, **kwargs):
+    #     super(Venda, self).save(*args, **kwargs)
+
+    @staticmethod
+    def update_price_discount(discount, tax):
+        for venda in Venda.objects.all():
+            venda.imposto = tax
+            venda.desconto = discount
+            venda.save()
+
+    def calculate_tax_discount(self):
+        all = self.value_all_sale() * (float(self.imposto)/100)
+        all += self.value_all_sale() * (float(self.desconto)/100)
+        return all
 
     def __str__(self):
         return self.numero

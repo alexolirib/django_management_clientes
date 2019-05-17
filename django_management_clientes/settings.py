@@ -27,11 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+#escolher as maquinas que mostre o toolbar
+INTERNAL_IPS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-  #  'bootstrapform',
+   'bootstrapform',
     'home',
     'client',
     'mail',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'django_management_clientes.urls'
@@ -74,18 +77,18 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_management_clientes.wsgi.application'
 
+WSGI_APPLICATION = 'django_management_clientes.wsgi.application'
+passw = '123456'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'gestao_clientes',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD':  '123456',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     },
@@ -132,7 +135,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/statics/'
+STATIC_ROOT = '/statics/'
 
 #arquivos estaticos
 MEDIA_URL = '/media/'
