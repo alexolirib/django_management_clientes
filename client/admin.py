@@ -29,6 +29,14 @@ class PersonAdmin(admin.ModelAdmin):
 
 #filtrar as vendas de pessoas com os cpf
 class VendaAdmin(admin.ModelAdmin):
+    readonly_fields = ('valor',)
+    fieldsets = (
+        ('Dados da venda', {'fields': (('numero',),)}),
+        ('Dados da venda', {'fields': (('desconto', 'imposto'),)}),
+        ('Dados complementares', {
+            'fields': ('person', 'produtos')
+        })
+    )
     list_display = ('get_doc_person', 'desconto', 'person',
                     'total_bruto', 'taxas_e_desconto', 'total_liquido')
 

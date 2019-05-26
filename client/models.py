@@ -1,5 +1,7 @@
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
 
 
 class Document(models.Model):
@@ -30,20 +32,26 @@ class Produto(models.Model):
         return self.descricao
 
 from functools import reduce
+
 class Venda(models.Model):
     numero = models.CharField(max_length=7)
+    valor = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     desconto = models.DecimalField(max_digits=5, decimal_places=2)
     imposto = models.DecimalField(max_digits=5, decimal_places=2)
     person = models.ForeignKey(Person, null=True, blank=True, on_delete=models.CASCADE)
     produtos = models.ManyToManyField(Produto, blank=True)
 
     def get_total(self):
-        return (self.value_all_sale() - self.calculate_tax_discount())
+        return self.value_all_sale() - self.calculate_tax_discount()
 
     def value_all_sale(self):
-        prices = [x.preco for x in self.produtos.all()]
-        sum_prices = reduce(lambda x, y: x+y, prices)
-        return float(sum_prices)
+        if len(self.produtos.all()) != 0:
+            prices = [x.preco for x in self.produtos.all()]
+            sum_prices = reduce(lambda x, y: x+y, prices)
+            return float(sum_prices)
+        else:
+            return 0
+
 
     #sobrescrevendo método save
     # def save(self, filename="Venda", *args, **kwargs):
@@ -63,6 +71,15 @@ class Venda(models.Model):
 
     def __str__(self):
         return self.numero
+
+
+#through os elementos da relação (como se fosse uma trigger
+@receiver(m2m_changed, sender=Venda.produtos.through)
+def update_vendas_total(sender, instance, **kwargs):
+    instance.save()
+    instance.valor = instance.get_total()
+    instance.save()
+    # Venda.objects.filter(id=instance.id).update(valor=total)
 
 class Periodo(models.Model):
     nome = models.CharField(max_length=60,null=True)
