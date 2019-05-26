@@ -5,11 +5,17 @@ from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
 from client import urls as clients_urls
+from produtos import urls as produtos_urls
+from vendas import urls as vendas_urls
+from periodos import urls as periodos_urls
 from home import urls as home_urls
 from mail import urls as mail_urls
 
 urlpatterns = [
     path('client/', include(clients_urls)),
+    path('produtos/', include(produtos_urls)),
+    path('vendas/', include(vendas_urls)),
+    path('vendas/', include(periodos_urls)),
     path('', include(home_urls)),
     #login - django já prover toda a parte de segurança do app
     path('login/', auth_views.login, name='login'),

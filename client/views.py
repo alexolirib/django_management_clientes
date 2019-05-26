@@ -6,7 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic.base import View
 
 from client.forms import PersonForm, SearchPeriodo
-from client.models import Person, Periodo, Produto, Venda
+from client.models import Person
+from periodos.models import Periodo
+from produtos.models import Produto
+from vendas.models import Venda
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
