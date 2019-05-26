@@ -32,3 +32,7 @@ if settings.DEBUG:
 
     ] + urlpatterns
 
+
+admin.site.site_header = 'Gestão de cliente (personalizado)'
+admin.site.index_title = 'Administração (personalizado)'
+admin.site.site_title = 'Seja bem vindo gestão de cliente'

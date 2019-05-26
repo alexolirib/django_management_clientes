@@ -33,6 +33,13 @@ class Produto(models.Model):
 
 from functools import reduce
 
+
+def atualiza_vendas():
+    vendas = Venda.objects.all()
+    for v in vendas:
+        v.valor = v.get_total()
+        v.save()
+
 class Venda(models.Model):
     numero = models.CharField(max_length=7)
     valor = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
@@ -40,6 +47,7 @@ class Venda(models.Model):
     imposto = models.DecimalField(max_digits=5, decimal_places=2)
     person = models.ForeignKey(Person, null=True, blank=True, on_delete=models.CASCADE)
     produtos = models.ManyToManyField(Produto, blank=True)
+    nfe_emitida = models.BooleanField(default=False)
 
     def get_total(self):
         return self.value_all_sale() - self.calculate_tax_discount()
