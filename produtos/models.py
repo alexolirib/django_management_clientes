@@ -8,5 +8,5 @@ class Produto(models.Model):
     preco = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return self.descricao
+        return f"{self.descricao} - {self.preco}"
 
