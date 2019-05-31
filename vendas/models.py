@@ -41,7 +41,7 @@ class Venda(models.Model):
             tot_ped = Sum((F('quantidade') * F('produto__preco')) - F('desconto'), output_field=FloatField())
         )['tot_ped'] #coloco o campo que vai retornar para o tot
 
-        tot = tot - float(self.imposto) or 0 - float(self.desconto) or 0
+        tot = tot or 0 - float(self.imposto) or 0 - float(self.desconto) or 0
         self.valor = tot
         # self.save()
         #se atualizar o desconto no cabeçalho
@@ -92,7 +92,10 @@ class ItensDoPedido(models.Model):
 
 # from django.db.models import Sum,F,FloatField
 # v = Venda.objects.all()
+# aggregate = cria meio que um group by e retorna um valor
 # v.itensdopedido_set.all().aggregate(tot_ped=Sum(F('quantidade') * F('produto__preco'), output_field=FloatField()))
+# annotate = incrementa em cada tupla da resposta uma coluna com a query feita
+#  v.itensdopedido_set.all().annotate(item_tot=Sum(F('quantidade') * F('produto__preco'), output_field=FloatField()))
 # {'tot_ped': 23.0}
 
 

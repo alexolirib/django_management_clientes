@@ -15,7 +15,7 @@ urlpatterns = [
     path('client/', include(clients_urls)),
     path('produtos/', include(produtos_urls)),
     path('vendas/', include(vendas_urls)),
-    path('vendas/', include(periodos_urls)),
+    path('periodos/', include(periodos_urls)),
     path('', include(home_urls)),
     #login - django já prover toda a parte de segurança do app
     path('login/', auth_views.login, name='login'),

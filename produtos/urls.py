@@ -1,4 +1,6 @@
 from django.urls import path, include
+#from produtos.views import DashboardView
+
 urlpatterns=[
-     # path('list/', produtos_list, name='person_list'),
+   #  path('dashboard/', DashboardView.as_view(), name='person_list'),
 ]
