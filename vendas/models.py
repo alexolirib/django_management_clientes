@@ -5,6 +5,8 @@ from django.db.models import Sum,F,FloatField
 from functools import reduce
 from client.models import Person
 from produtos.models import Produto
+from vendas.managers import VendaManager, ItensDoPedidoManager
+
 
 def atualiza_vendas():
     vendas = Venda.objects.all()
@@ -21,6 +23,8 @@ class Venda(models.Model):
     person = models.ForeignKey(Person, null=True, blank=True, on_delete=models.CASCADE)
     nfe_emitida = models.BooleanField(default=False)
 
+    objects = VendaManager()
+
     # def get_total(self):
     #     return self.value_all_sale() - self.calculate_tax_discount()
     #
@@ -36,6 +40,7 @@ class Venda(models.Model):
     # def save(self, filename="Venda", *args, **kwargs):
     #     super(Venda, self).save(*args, **kwargs)
 
+    #como esse método vou utilizar na instancia em cada venda, aí não se bota no manager
     def calcular_total(self):
         tot = self.itensdopedido_set.all().aggregate(
             tot_ped = Sum((F('quantidade') * F('produto__preco')) - F('desconto'), output_field=FloatField())
@@ -80,6 +85,8 @@ class ItensDoPedido(models.Model):
     quantidade = models.FloatField(default=1)
     # desconto específico para cada produto
     desconto = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+
+    objects = ItensDoPedidoManager()
 
     def __str__(self):
         return f"{self.venda.numero} - {self.venda.person} - {self.produto.descricao}"

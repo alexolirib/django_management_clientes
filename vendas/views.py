@@ -5,16 +5,17 @@ from .models import Venda, ItensDoPedido
 
 class DashboardView(View):
     def get(self, request):
-        media_venda = Venda.objects.all().aggregate(media=Avg('valor'))['media']
-        media_desc_cabeçalho = Venda.objects.all().aggregate(desc= Avg('desconto'))['desc']
-        media_desc_por_produto = ItensDoPedido.objects.all().aggregate(media_desc_prod=Avg("desconto"))['media_desc_prod']
-        qtd_vendas = len(Venda.objects.all())
+        #métodos estou pegando de vendas que está pegando do VendaManager
+        media_venda = Venda.objects.media()
+        media_desc_cabeçalho = Venda.objects.desconto_cabecalho()
+        media_desc_por_produto = ItensDoPedido.objects.descoto_produto()
+        qtd_vendas = Venda.objects.qtd_vendas()
         # nfe_impressa = len(Venda.objects.filter(nfe_emitida=True))
         #duas forma de fazer
-        nfe_impressa = Venda.objects.filter(
-            nfe_emitida=True).aggregate(Count('id'))['id__count']
-        min = Venda.objects.all().aggregate(valor_min = Min('valor'))['valor_min']
-        max = Venda.objects.all().aggregate(Max('valor'))['valor__max']
+        nfe_impressa = Venda.objects.nfe_impressa()
+        min = Venda.objects.valor_min_venda()
+        max = Venda.objects.valor_max_venda()
+
         context = {'media': media_venda,
                    'media_desc_cabecalho': media_desc_cabeçalho,
                    'media_desc_por_produto': media_desc_por_produto,
