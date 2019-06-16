@@ -8,15 +8,16 @@
 
     </div>
 
-    <div class="col-6">
+    <div class="col-5">
         <h1>Seja bem vindo</h1>
     </div>
 
-    <div class="col-sm">
+        <div class="col-md">
         {% if user.is_authenticated %}
         <p>Olá {{ user.username }}</p>
             <ul>
                 <li><a href="{% url 'person_list'%}">Entrar</a></li>
+                <li><a href="{% url 'person_list_cbv'%}">class based view(cbv)</a></li>
                 <li><a href="{% url 'admin:index'%}">Admin</a></li>
                 <li><a href="{% url 'dashboard_Venda'%}">dashboard</a></li>
                 <li><a href="{% url 'logout'%}">Sair</a></li>

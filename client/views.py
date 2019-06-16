@@ -1,5 +1,7 @@
 from django.utils import timezone
 from django.http import HttpResponse, HttpResponseBadRequest, Http404, HttpResponseNotFound
+#Mixis importa métodos para meus cbv
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -73,13 +75,16 @@ def persons_delete(request, id):
 
 
 # se não informar o template_name ele pega o padrão (está em pasta de client)
-class PersonList(ListView):
+
+#LoginRequiredMixin  - importante vir primeiro do que minha view
+#metodos prontos(verifica se está logado
+class PersonList(LoginRequiredMixin, ListView):
     model = Person
     # definir um template para exibir
     # template_name = 'home3.html'
 
 
-class PersonDetail(DetailView):
+class PersonDetail(LoginRequiredMixin, DetailView):
     model = Person
 
     #sobrescrever método para uma consulta mais perfomática
@@ -99,7 +104,7 @@ class PersonDetail(DetailView):
         return context
 
 
-class PersonCreate(CreateView):
+class PersonCreate(LoginRequiredMixin, CreateView):
     model = Person
     # personalizar os fields
     fields = ['first_name', 'last_name', 'age', 'salary', 'bio', 'photo']
@@ -107,15 +112,16 @@ class PersonCreate(CreateView):
     success_url = '/client/person_list'
 
 
-class PersonUpdate(UpdateView):
+class PersonUpdate(LoginRequiredMixin, UpdateView):
     model = Person
     # personalizar os fields
     fields = ['first_name', 'last_name', 'age', 'salary', 'bio', 'photo']
     success_url = reverse_lazy('person_list_cbv')
 
 
-class PersonDelete(DeleteView):
+class PersonDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Person
+    permission_required = ('client.deletar_clientes',)
 
     # success_url = reverse_lazy('person_list_cbv')
     # outra forma que ficar melhor para manipular
@@ -124,7 +130,7 @@ class PersonDelete(DeleteView):
         return reverse_lazy('person_list_cbv')
 
 
-class ProdutoBulk(View):
+class ProdutoBulk(LoginRequiredMixin, View):
     def get(self, request):
         produtos = ['Banana', 'apple', 'limon', 'orange', 'pineapple']
         list_produtos = []
