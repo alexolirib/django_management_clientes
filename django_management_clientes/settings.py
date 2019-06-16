@@ -159,3 +159,11 @@ EMAIL_HOST_USER = 'alexolirib@outlook.com'
 EMAIL_HOST_PASSWORD = '*******'
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+#autenticar na mão
+# from django.contrib.auth import authenticate
+# from django.contrib.auth.models import User
+# user = authenticate(username='Maria', password='avatar14')
+#user retornar None é que não autenticou
+#is_staff - verifica se é um membro da equipe(ter acesso ao admin)
+#user.has_perm('client.change_person')

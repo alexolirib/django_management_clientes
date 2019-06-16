@@ -25,6 +25,14 @@ class Venda(models.Model):
 
     objects = VendaManager()
 
+    class Meta:
+        permissions =  (
+            #será utilizada nas actions.py do App vendas
+            ('setar_nfe', 'Usuário pode alterar parâmetro NF-e'),
+            ('permissao_exemplo2', 'Permissão 2 super permission'),
+            ('permissao_exemplo3', 'Permissão 3 super super super Goku'),
+        )
+
     # def get_total(self):
     #     return self.value_all_sale() - self.calculate_tax_discount()
     #

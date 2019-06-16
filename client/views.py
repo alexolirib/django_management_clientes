@@ -38,10 +38,11 @@ def persons_list(request):
 
 @login_required
 def persons_new(request):
+    if not request.user.has_perm('client.add_person'):
+        return HttpResponse('Não autorizado')
     # verifica se já tem algo, se não envia vazio
     # request.FILES - arquivos de midias que estão sendo enviados
     form = PersonForm(request.POST or None, request.FILES or None)
-    breakpoint()
 
     if form.is_valid():
         form.save()
