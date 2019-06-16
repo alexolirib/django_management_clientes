@@ -1,9 +1,18 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic.base import View
 from django.db.models import *
 from .models import Venda, ItensDoPedido
 
 class DashboardView(View):
+    #Primeiros métodos que é disparado quando a view é chamada
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.has_perm('vendas.ver_dashboard'):
+            return HttpResponse('Acesso negado, voce precisa de permissão!')
+
+        #retornar o caminho normal do meu dispatch
+        return super(DashboardView, self).dispatch(request, *args, **kwargs)
+
     def get(self, request):
         #métodos estou pegando de vendas que está pegando do VendaManager
         media_venda = Venda.objects.media()

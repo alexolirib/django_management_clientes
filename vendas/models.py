@@ -29,7 +29,7 @@ class Venda(models.Model):
         permissions =  (
             #será utilizada nas actions.py do App vendas
             ('setar_nfe', 'Usuário pode alterar parâmetro NF-e'),
-            ('permissao_exemplo2', 'Permissão 2 super permission'),
+            ('ver_dashboard', 'Pode visualizar o Dashboard'),
             ('permissao_exemplo3', 'Permissão 3 super super super Goku'),
         )
 

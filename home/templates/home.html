@@ -15,7 +15,12 @@
     <div class="col-sm">
         {% if user.is_authenticated %}
         <p>Olá {{ user.username }}</p>
-        <a href="{% url 'logout'%}">Sair</a>
+            <ul>
+                <li><a href="{% url 'person_list'%}">Entrar</a></li>
+                <li><a href="{% url 'admin:index'%}">Admin</a></li>
+                <li><a href="{% url 'dashboard_Venda'%}">dashboard</a></li>
+                <li><a href="{% url 'logout'%}">Sair</a></li>
+            </ul>
         {% else %}
         <a href="{% url 'login' %}" class="btn btn-info">Entrar</a>
         {% endif %}

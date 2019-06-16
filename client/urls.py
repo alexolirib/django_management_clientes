@@ -2,7 +2,7 @@
 from django.urls import path, include
 
 from client.views import persons_list, persons_new, persons_update, persons_delete, PersonList, PersonDetail, \
-    PersonCreate, PersonUpdate, PersonDelete, PeriodoListView, ProdutoBulk
+    PersonCreate, PersonUpdate, PersonDelete, ProdutoBulk
 
 urlPerson=[
     path('list/', persons_list, name='person_list'),
@@ -21,13 +21,8 @@ urlProduto=[
     path('produto_bulk/', ProdutoBulk.as_view())
 ]
 
-urlPeriodo=[
-    path('list/', PeriodoListView.as_view())
-]
-
 
 urlpatterns = [
     path('person/', include(urlPerson)),
-    path('periodo/', include(urlPeriodo)),
     path('produto/', include(urlProduto))
 ]
